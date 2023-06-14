@@ -3,6 +3,9 @@ STR1 DB 'MADAM';        Getting input for the string
 LEN1 DW ($-STR1);       Storing the length of STR1
 STR2 DB 'MADA';         Getting input for the search pattern
 LEN2 DW ($-STR2);       Storing the length of STR2
+;                       The $ operator represents the current address
+;                       $-STR1 gives the distance between the current address and the start of STR1, 
+;                       which corresponds to the length of the string.
 DATA ENDS
 
 CODE SEGMENT
