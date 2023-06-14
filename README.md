@@ -7,7 +7,8 @@
 <details>
   <summary>LEA loads the memory offset address instead of actual value we don't want value of STR1, STR2. Rather we want their Address location.</summary>
 In the given code snippet, the LEA instruction is used to load the effective address of a memory operand into a register. Let's examine the lines: 
-```asm
+
+```assembly
 LEA SI, STR1
 LEA DI, STR2
 ```
