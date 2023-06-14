@@ -1,16 +1,16 @@
 DATA SEGMENT
-STR1 DB 'MADAM'
-LEN1 DW ($-STR1);       storing the length of STR1
-STR2 DB 'MADA'
-LEN2 DW ($-STR2);       stroing the length of STR2
+STR1 DB 'MADAM';        Getting input for the string
+LEN1 DW ($-STR1);       Storing the length of STR1
+STR2 DB 'MADA';         Getting input for the search pattern
+LEN2 DW ($-STR2);       Storing the length of STR2
 DATA ENDS
 
 CODE SEGMENT
 
-LEA SI, STR1
-LEA DI, STR2
-MOV DX, LEN1
-MOV CX, LEN2
+LEA SI, STR1;           Store the memory address of STR1 in SI
+LEA DI, STR2;           Store the memory address of STR2 in DI
+MOV DX, LEN1;           Store the length of string in DX
+MOV CX, LEN2;           Store the length of substring in CX
 CMP CX, DX;             comparing main & substring length
 JA EXIT;                if substring size is bigger than there is no chance to be found it in main string
 JE SAMELENGTH;          if main & sub string both have same length the we can compare them directly
