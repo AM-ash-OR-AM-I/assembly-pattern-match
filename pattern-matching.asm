@@ -22,7 +22,8 @@ JB FIND                 ; general case (substring length < mainstring length): w
 SAMELENGTH:
         CLD             ; Clear Direction Flag (DF) to increment SI and DI after each comparison 
         REPE CMPSB      ; It compares the byte at [SI] with the byte at [DI] and sets the Zero Flag (ZF) if they are equal. 
-                        ; If the ZF flag is set (i.e., the bytes are equal), it increments SI and DI to point to the next bytes in memory. It repeats steps 1 and 2 until the ZF flag is cleared (i.e., the bytes being compared are not equal) or the count in CX reaches zero.
+                        ; If the ZF flag is set (i.e., the bytes are equal), it increments SI and DI to point to the next bytes in memory. 
+                        ; It repeats steps 1 and 2 until the ZF flag is cleared (i.e., the bytes being compared are not equal) or the count in CX reaches zero.
         JNE RED         ; Jump if not equal
         JMP GREEN       ; else Jump (if equal)
 
