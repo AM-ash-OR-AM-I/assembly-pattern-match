@@ -1,20 +1,20 @@
 .data
-    STR1 DB 'MADAM'     ; Getting input for the string, TODO: Getting input for the string
-    LEN1 DW ($-STR1)    ; Storing the length of STR1
-    STR2 DB 'ADAR'      ; Getting input for the search pattern
-    LEN2 DW ($-STR2)    ; Storing the length of STR2
-                        ; The $ operator represents the current address
-                        ; $-STR1 gives the distance between the current address and the start of STR1, 
-                        ; which corresponds to the length of the string.                               
+    STR1 DB 'MADAM'         ; Getting input for the string
+    LEN1 DW ($-STR1)        ; Storing the length of STR1
+    STR2 DB 'ADAR'          ; Getting input for the search pattern
+    LEN2 DW ($-STR2)        ; Storing the length of STR2
+                            ; The $ operator represents the current address
+                            ; $-STR1 gives the distance between the current address and the start of STR1, 
+                            ; which corresponds to the length of the string.                               
 .code:
-    LEA SI, STR1        ; Store the memory address of STR1 in SI
-    LEA DI, STR2        ; Store the memory address of STR2 in DI
-    MOV DX, LEN1        ; Store the length of string in DX
-    MOV CX, LEN2        ; Store the length of substring in CX
-    CMP CX, DX          ; comparing main & substring length
-    JA EXIT             ; (Jump Above), if substring (CX) size is bigger than main string (DX) there is no chance to be found it in main string
-    JE SAMELENGTH       ; (Jump Equal/ Jump Zero (JZ)) if main & sub string both have same length the we can compare them directly
-    JB FIND             ; general case (substring length < mainstring length): we can apply our main process                 
+    LEA SI, STR1            ; Store the memory address of STR1 in SI
+    LEA DI, STR2            ; Store the memory address of STR2 in DI
+    MOV DX, LEN1            ; Store the length of string in DX
+    MOV CX, LEN2            ; Store the length of substring in CX
+    CMP CX, DX              ; comparing main & substring length
+    JA EXIT                 ; (Jump Above), if substring (CX) size is bigger than main string (DX) there is no chance to be found it in main string
+    JE SAMELENGTH           ; (Jump Equal/ Jump Zero (JZ)) if main & sub string both have same length the we can compare them directly
+    JB FIND                 ; general case (substring length < mainstring length): we can apply our main process                 
     
     SAMELENGTH:
         CLD             ; Clear Direction Flag (DF) to increment SI and DI after each comparison 
@@ -58,19 +58,21 @@
                         ; we start over the same process from the next character of main string by going to FIND segment         
 
     FOUND:  
-        MOV DX, OFFSET FOUND_MSG
+        LEA DX, FOUND_MSG
         MOV AH, 9H                  ; Control signal sent
         INT 21H                     ; Interrupt signal to show output
         JMP EXIT
-        FOUND_MSG   DB "Found it!$" ; Show output if substring found in main string
+        
 
     NOT_FOUND:    
-        MOV DX, OFFSET NOT_FOUND_MSG            
+        LEA DX, NOT_FOUND_MSG            
         MOV AH, 9H      
         INT 21H                
         JMP EXIT
-        NOT_FOUND_MSG DB "Can't find Pattern!$"
     
     EXIT:                
         HLT
         ret
+
+FOUND_MSG       DB "Found it!$"             ; Show output if substring found in main string
+NOT_FOUND_MSG   DB "Can't find Pattern!$"
