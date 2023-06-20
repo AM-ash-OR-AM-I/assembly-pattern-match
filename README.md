@@ -1,22 +1,55 @@
 ## Summary of Pattern Matching Program
-- ### DATA SEGMENT
+- ### Get User Input
   - ```assembly
-    DATA SEGMENT
-    STR1 DB 'MADAM';        Getting input for the string
-    LEN1 DW ($-STR1);       Storing the length of STR1
-    STR2 DB 'MADA';         Getting input for the search pattern
-    LEN2 DW ($-STR2);       Storing the length of STR2
-    DATA ENDS
-    ```
-  - `STR1` is a data variable declared as a byte array (DB) and initialized with the string "MADAM". It represents the first string that will be used in the program.
-  - `LEN1` is a data variable declared as a word (DW). It stores the length of `STR1` using the $ operator. The $ operator represents the current address, and `$-STR1` gives the distance between the current address and the start of `STR1`, which corresponds to the length of the string.
-  - `STR2` is another data variable declared as a byte array (DB) and initialized with the string "MADA". It represents the second string.
-  - `LEN2` is a data variable declared as a word (DW). Similar to LEN1, it stores the length of STR2 using the $ operator.
-  - 
-- ### CODE SEGMENT
-  - ```assembly
-    CODE SEGMENT
+    ; Display input msg for string     
+    LEA DX, MSG1            ; Get offset address
+    MOV AH, 09H             ; String display subroutine
+    INT 21H                 ; DOS interrupt
     
+    ; Get input for string  
+    MOV AH, 0AH             ; String input subroutine
+    LEA DX, STR1            ; Load address of string
+    MOV STR1, 70            ; Set string size
+    INT 21H                 ; DOS interrupt
+    
+    ; Calculate string length
+    MOV SI, OFFSET STR1 + 1 ; Get String input length
+    MOV CL, [SI]            ; Store length in CL rgeister
+    MOV CH, 0
+    MOV WORD PTR LEN1, CX   ; Store length to LEN1 variable
+    
+    ; Display input msg for pattern             
+    LEA DX, MSG2            ; Get offset address
+    MOV AH, 09H             ; String display subroutine
+    INT 21H                 ; DOS interrupt
+    
+    ; Get input for pattern
+    MOV AH, 0AH             ; String input subroutine
+    LEA DX, STR2            ; Load address of string
+    MOV STR2, 70            ; Set string size
+    INT 21H                 ; DOS interrupt   
+    
+    ; Calculate pattern length
+    MOV SI, OFFSET STR2 + 1 ; Get String input length
+    MOV CL, [SI]
+    MOV CH, 0
+    MOV WORD PTR LEN2, CX
+    ```
+  - #### Variables initialisation
+    ```assembly
+    .data:
+    MSG1 DB "Enter string to search: $"             ; Show the message on the screen
+    STR1 DB 100 DUP('$')                            ; Create a string of 100 bytes
+    LEN1 DW 0                                       ; Store the length of the string
+    MSG2 DB 13, 10, "Enter pattern: $"              
+    STR2 DB 100 DUP('$')                            
+    LEN2 DW 0 
+    FOUND_MSG DB 13, 10, "Found Pattern!$"               ; 13 is used to move the cursor to the beginning of the next line,
+    NOT_FOUND_MSG DB 13, 10, "Can't find Pattern!$" ; 10 is used to move the cursor to the beginning of the next line 
+    ```
+
+- ### CODE
+  - ```assembly
     LEA SI, STR1;           Store the memory address of STR1 in SI
     LEA DI, STR2;           Store the memory address of STR2 in DI
     MOV DX, LEN1;           Store the length of string in DX
@@ -48,8 +81,8 @@
     SAMELENGTH:
         CLD
         REPE CMPSB
-        JNE RED
-        JMP GREEN
+        JNE NOT_FOUND
+        JMP FOUND
     ```
   - <details>
     <summary>Here's how the REPE CMPSB instruction works:</summary>
@@ -60,3 +93,10 @@
 
     It repeats steps 1 and 2 until the ZF flag is cleared (i.e., the bytes being compared are not equal) or the count in CX reaches zero.
     </details>
+
+## References
+
+- https://github.com/AhmadNaserTurnkeySolutions/emu8086
+- https://www.youtube.com/watch?v=BjI9Ypz09RA
+- https://codereview.stackexchange.com/questions/60389/checking-substring-in-8086-asm
+- https://stackoverflow.com/questions/45367779/how-to-print-the-length-of-a-string-in-assembly

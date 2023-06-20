@@ -11,10 +11,10 @@
     INT 21H                 ; DOS interrupt
     
     ; Calculate string length
-    MOV SI, OFFSET STR1 + 1
-    MOV CL, [SI]
+    MOV SI, OFFSET STR1 + 1 ; Get String input length
+    MOV CL, [SI]            ; Store length in CL rgeister
     MOV CH, 0
-    MOV WORD PTR LEN1, CX
+    MOV WORD PTR LEN1, CX   ; Store length to LEN1 variable
     
     ; Display input msg for pattern             
     LEA DX, MSG2            ; Get offset address
@@ -28,12 +28,13 @@
     INT 21H                 ; DOS interrupt   
     
     ; Calculate pattern length
-    MOV SI, OFFSET STR2 + 1
+    MOV SI, OFFSET STR2 + 1 ; Get String input length
     MOV CL, [SI]
     MOV CH, 0
     MOV WORD PTR LEN2, CX
 
-
+    ; First index is used to store array length (70 max here), 2nd is used to store string length
+    ; Thus we calculate from STR1+2 to get memory address of 1st character in string
     LEA SI, STR1+2          ; Store the memory address of STR1 in SI
     LEA DI, STR2+2          ; Store the memory address of STR2 in DI
     MOV DX, LEN1            ; Store the length of the string in DX
@@ -93,7 +94,7 @@
         JMP DISPLAY
           
     DISPLAY:
-        MOV AH, 9H           ; Control signal sent
+        MOV AH, 9H           ; Control signal sent for display
         INT 21H              ; Interrupt signal to show output
         JMP EXIT
         
@@ -107,5 +108,5 @@
     MSG2 DB 13, 10, "Enter pattern: $"              
     STR2 DB 100 DUP('$')                            
     LEN2 DW 0 
-    FOUND_MSG DB 13, 10, "Found it!$"               ; 13 is used to move the cursor to the beginning of the next line,
+    FOUND_MSG DB 13, 10, "Found Pattern!$"               ; 13 is used to move the cursor to the beginning of the next line,
     NOT_FOUND_MSG DB 13, 10, "Can't find Pattern!$" ; 10 is used to move the cursor to the beginning of the next line         
