@@ -1,10 +1,6 @@
 
 ; The easiest way to print out "Hello, World!"
 
-name "hi"
-
-org 100h
-
 jmp start       ; jump over data declaration
 
 msg:    db      "Hello, World!", 0Dh,0Ah, 24h
