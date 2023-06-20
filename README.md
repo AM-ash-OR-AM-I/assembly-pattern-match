@@ -100,4 +100,4 @@
 - https://www.youtube.com/watch?v=BjI9Ypz09RA
 - https://codereview.stackexchange.com/questions/60389/checking-substring-in-8086-asm
 - https://stackoverflow.com/questions/45367779/how-to-print-the-length-of-a-string-in-assembly
-- https://gist.github.com/AM-ash-OR-AM-I/84def69dc355f8b7676d4dc140232d47 (Our Project files and other code work.)
+- https://github.com/AM-ash-OR-AM-I/assembly-pattern-match (Our Project files and other code work.)
