@@ -102,11 +102,22 @@
 
       It repeats steps 1 and 2 until the ZF flag is cleared (i.e., the bytes being compared are not equal) or the count in CX reaches zero.
       </details>
+      
+- ## Conclusion
+  In conclusion, our project has involved the development of an assembly program for pattern matching. This program allows us to search for specific patterns within input strings and determine their presence or absence.
 
-## References
+  Throughout the project, we have gained valuable insights into string manipulation and algorithm design in the context of assembly language. By implementing this pattern matching program, we have learned important concepts such as prompting the user for input, calculating string lengths, comparing characters, and handling different scenarios based on the comparison results.
+
+  While the program does not utilize the famous Knuth-Morris-Pratt (KMP) algorithm, it serves as a practical exercise in low-level programming and assembly language. It has provided us with a deeper understanding of memory management, register usage, and control flow manipulation.
+
+  Completing this project has not only allowed us to achieve our goal of implementing a pattern matching program, but it has also expanded our knowledge and competence in assembly programming. The program can be further developed and enhanced to suit specific requirements and applications that involve string manipulation and analysis.
+
+  Overall, this project has been a valuable learning experience, reinforcing our understanding of assembly language programming and its applications in pattern matching.
+
+- ## References
 
 - https://github.com/AhmadNaserTurnkeySolutions/emu8086
 - https://www.youtube.com/watch?v=BjI9Ypz09RA
 - https://codereview.stackexchange.com/questions/60389/checking-substring-in-8086-asm
 - https://stackoverflow.com/questions/45367779/how-to-print-the-length-of-a-string-in-assembly
-- https://github.com/AM-ash-OR-AM-I/assembly-pattern-match (Our Project files and other code work.)
+- https://github.com/AM-ash-OR-AM-I/assembly-pattern-match (We created this repository for our Project files and other code work.)
